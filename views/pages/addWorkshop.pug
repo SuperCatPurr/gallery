@@ -1,0 +1,16 @@
+html
+	head
+		title add workshop
+		style
+			include ../styles.css
+body
+	include ../partials/headers
+	h1 You can add a workshop by submitting the form below 
+	div#main
+		form#addWorkshop(action="/addWorkshop",method="POST")
+			p Name of Workshop:
+				input#name(type="textbox", name="name" required)
+			input(type="submit" value="submit")
+			
+
+		

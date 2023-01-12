@@ -1,0 +1,29 @@
+html
+	head
+		title add artwork
+		style
+			include ../styles.css
+body
+	include ../partials/headers
+	h1 You can add an artwork by submitting the form below 
+	div#main
+		form#addArtwork(action="/addArtwork",method="POST")
+			p Artist: #{user.username}
+			p Name of Artwork: 
+				input#name(type="textbox", name="name")
+			p Year: 
+				input#year(type="textbox", name="year")
+			p Category: 
+				select#category(name="category")
+					each c in category
+						option(value=c) #{c}
+			p Medium: 
+			select#medium(name="medium")
+					each m in medium
+						option(value=m) #{m}
+			p Description:
+				input#description(type="textbox", name="description")
+			p Link to the artwork: 
+				input#image(type="textbox", name="image")
+			br
+			input(type="submit" value="submit")

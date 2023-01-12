@@ -1,0 +1,11 @@
+div#header
+    a(href="/") Home
+    |  
+    if session && session.loggedin
+        span 
+            a(href="/users/" + user.id) Back to my page
+            |        
+        span   
+            a(href="/logout") Logout
+            |
+

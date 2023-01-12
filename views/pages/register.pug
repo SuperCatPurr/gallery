@@ -1,0 +1,14 @@
+html
+  head
+    title create account
+    style
+      include ../styles.css
+body
+  h1 create account
+  form#register(action="/register", method="POST")
+    p Username:
+      input#username(type="textbox", name="username" required)
+    p Password:
+      input#password(type="textbox", name="password" required)
+    br
+    input(type="submit", value="Register")

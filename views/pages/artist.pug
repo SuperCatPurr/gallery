@@ -1,0 +1,32 @@
+html
+  head
+    title Artist #{artist.name}
+    style
+      include ../styles.css
+body
+  include ../partials/headers
+
+  div#main
+    div.top
+      h1 Artist #{artist.name}
+    div.left
+      form#followArtist(action="/artists/" + artist.id, method = "POST")
+        p follow artist:
+          input#follow(type="radio", name="follow" value = "follow" required)
+        p unfollow artist:
+          input#follow(type="radio", name="follow" value = "unfollow" required)
+        br
+        input(type="submit" value="submit") 
+
+    div.middle
+      h2 Artworks
+      each artwork in artist.artworks 
+        a(href = "/artworks/" + artwork.id) #{artwork.name}
+        br
+    div.right
+      if(artist.workshops !== undefined)
+        h2 Workshops
+        each ws in artist.workshops
+          a(href = "/workshops/" + ws.id) #{ws.name}
+          br
+

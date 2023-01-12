@@ -1,0 +1,65 @@
+html
+	head
+		title Artwork Page
+		style 
+			include ../styles.css
+body
+	include ../partials/headers
+
+	div.info
+		div#info
+			h1 #{artwork.name}
+			p Artist: 
+			a(href = "/artists/" + artist.id) #{artwork.artist}
+			|
+			p Year:     		#{artwork.year}
+			|
+			p Category: 		#{artwork.category}
+			|
+			p Medium: 			#{artwork.medium}
+			|
+			p description:	#{artwork.description}
+			|
+			-let link = artwork.image
+			img#image(src=link)
+
+		div#reviewAndLikes
+			h2 reviews and likes
+			each rev in artwork.reviews 
+				p #{rev.reviewer}: #{rev.review}
+			p likes: #{artwork.likes}
+
+
+			h2 Review and Likes
+			form(action="/artwork/"+artwork.id, method="POST")
+				p Update/add review: 
+					input(type="textbox", name="rev")
+				p Delete your previous review
+					input(type="checkbox" name="delRev" value="true")
+				p Like:
+					input(type="radio" name="like" value="true")
+				p Cancel like:
+					input(type="radio" name="like" value="delLike")
+				br
+				input(type="submit" value="submit")
+
+	div#relating
+		p Other artworks in same category: #{artwork.category}
+		if(artwork.sameCat !== undefined && artwork.sameCat.length !== 0)
+			each art in artwork.sameCat
+				if(art.id !== artwork.id)
+					-let link = "/artworks/"+art.id
+					a(href=link) #{art.name}
+					br
+		if(artwork.sameMd !== undefined && artwork.sameMd.length !== 0)
+			p Other artworks using same medium: #{artwork.medium}
+			each art in artwork.sameMd
+				if(art.id !== artwork.id)
+					-let link = "/artworks/"+art.id
+					a(href=link) #{art.name}
+					br
+
+
+
+		
+

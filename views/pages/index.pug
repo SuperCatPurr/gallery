@@ -1,0 +1,21 @@
+html
+	head
+		title home
+		style 
+			include ../styles.css
+body
+	div#main
+		h1 Welcome to the Open Gallery!
+
+		form#login(action="/login", method="POST")
+			p Username:
+				input#username(type="textbox", name="username")
+			p Password:
+				input#password(type="textbox", name="password")
+			
+			br
+			input(type="submit" value="login")
+
+		a(href = "/register") Create Account
+
+

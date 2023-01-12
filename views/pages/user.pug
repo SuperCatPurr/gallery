@@ -1,0 +1,83 @@
+html
+	head
+		title profile
+		style 
+			include ../styles.css
+body
+	include ../partials/headers
+	h1 Welcome back #{user.username}!
+
+
+	
+
+	div.left
+		h2 Search artworks
+		form#searchArtworks(action="/artworks", method="GET")
+			p Artist:
+				input#artist(type="textbox", name="artist")
+			p Name:
+				input#name(type="textbox", name="name")
+			p Category:
+				select#category(name="category")
+					each c in category
+						option(value=c) #{c} 
+			br
+			input(type="submit" value="Show Results")
+
+		div#results
+			if(artworks!==undefined)
+				- let artworksSet = artworks		
+				include ./searchResult
+		br
+
+	div.middle
+		if(user.likes !== undefined || user.likes.length != 0)
+			h2 Artworks liked
+			each l in user.likes
+				-let link = l.artwork
+			  
+				a(href = link) #{link}
+				br
+		if(user.reviews !== undefined || user.reviews.length != 0)
+			h2 Artworks reviewed
+			each r in user.reviews
+				-let link = r.artwork
+				a(href = link) #{r.review}
+				br
+		if(user.follow !== undefined)
+			h2 Artists followed
+			each a in user.follow
+				if(a.name !== undefined)
+					-let link = "/artists/" + a.id
+					a(href = link) #{a.name}
+					br
+
+	//-if the user is artist, the div will be available when switch
+	div#switchProfile
+		button#switch(type="button") Switch Profile
+		br
+		-if(user.isArtist)
+			div#artistFunc(style="visibility: hidden")
+				h2 Artist Only
+				a(href="/artists/" + user.id) Go to my artist page
+				br
+				a(href = "/addArtwork") Add Artwork
+				br
+				a(href = "/addWorkshop") Add workshop
+
+	div#notification
+	if(user.notification !== undefined && user.notification.length > 0)
+		h2 Notification
+		each n in user.notification
+			p #{n.artist} published new #{n.type}
+			
+
+		
+	p#userID(style="visibility: hidden") #{user.id}
+	p#isArtist(style="visibility: hidden") #{user.isArtist}
+	script(src="../switch.js")
+
+
+
+
+

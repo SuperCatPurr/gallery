@@ -1,0 +1,24 @@
+html
+  head
+    title Worskshop Page
+    style
+      include ../styles.css
+body
+  include ../partials/headers
+  div#info
+    h1 Workshop: #{workshop.name}
+    p Artist: #{workshop.artist}
+
+    form(action="/workshops/" + workshop.id, method = "POST")
+      p enroll
+        input#follow(type="radio", name="enroll" required)
+      br
+      input(type="submit" value="submit") 
+
+    if(workshop.followers !== undefined)
+      h2 Users enrolled
+      each follower in workshop.followers
+        p #{follower.name}       
+		
+	
+		
